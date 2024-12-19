@@ -29,16 +29,16 @@ struct Tensor4D {
     // 则 `this` 与 `others` 相加时，3 个形状为 `[1, 2, 1, 4]` 的子张量各自与 `others` 对应项相加。
     Tensor4D &operator+=(Tensor4D const &others) {
         // TODO: 实现单向广播的加法
-        for (int i = 0; i < shape[0]; i++) {
+        for (unsigned int i = 0; i < shape[0]; i++) {
             int oi = shape[0] != others.shape[0] ? 0 : i;
-            for (int j = 0; j < shape[1]; j++) {
+            for (unsigned int j = 0; j < shape[1]; j++) {
                 int oj = shape[1] != others.shape[1] ? 0 : j;
-                for (int k = 0; k < shape[2]; k++) {
+                for (unsigned int k = 0; k < shape[2]; k++) {
                     int ok = shape[2] != others.shape[2] ? 0 : k;
-                    for (int l = 0; l < shape[3]; l++) {
+                    for (unsigned int l = 0; l < shape[3]; l++) {
                         int ol = shape[3] != others.shape[3] ? 0 : l;
-                        int index = i*shape[1]*shape[2]*shape[3] + j * shape[2]*shape[3] + k * shape[3] + l;
-                        int oindex = oi * others.shape[1] * others.shape[2] * others.shape[3] + oj * others.shape[2] * others.shape[3] + ok * others.shape[3] + ol;
+                        size_t index = i*shape[1]*shape[2]*shape[3] + j * shape[2]*shape[3] + k * shape[3] + l;
+                        size_t oindex = oi * others.shape[1] * others.shape[2] * others.shape[3] + oj * others.shape[2] * others.shape[3] + ok * others.shape[3] + ol;
                         data[index] += others.data[oindex];
                     }
                 }
